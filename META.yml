@@ -28,7 +28,7 @@ no_index:
 provides:
   Test::UsedModules:
     file: lib/Test/UsedModules.pm
-    version: 0.01
+    version: 0.02
   Test::UsedModules::Constants:
     file: lib/Test/UsedModules/Constants.pm
   Test::UsedModules::PPIDocument:
@@ -45,4 +45,4 @@ resources:
   bugtracker: https://github.com/moznion/Test-UsedModules/issues
   homepage: https://github.com/moznion/Test-UsedModules
   repository: git://github.com/moznion/Test-UsedModules.git
-version: 0.01
+version: 0.02

@@ -19,6 +19,16 @@ t/resource/lib/Test/UsedModules/Fail2.pm
 t/resource/lib/Test/UsedModules/Fail3.pm
 t/resource/lib/Test/UsedModules/Fail4.pm
 t/resource/lib/Test/UsedModules/Succ1.pm
+t/resource/lib/Test/UsedModules/Succ10.pm
+t/resource/lib/Test/UsedModules/Succ2.pm
+t/resource/lib/Test/UsedModules/Succ3.pm
+t/resource/lib/Test/UsedModules/Succ4.pm
+t/resource/lib/Test/UsedModules/Succ5.pm
+t/resource/lib/Test/UsedModules/Succ6.pm
+t/resource/lib/Test/UsedModules/Succ7.pm
+t/resource/lib/Test/UsedModules/Succ8.pm
+t/resource/lib/Test/UsedModules/Succ9.pm
+t/resource/lib/Test/UsedModules/Test/Exporter.pm
 xt/local_functions.t
 xt/perlcritic.t
 xt/perlcriticrc
