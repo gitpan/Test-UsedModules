@@ -7,7 +7,7 @@ use parent qw/Test::Builder::Module/;
 use ExtUtils::Manifest qw/maniread/;
 use Test::UsedModules::PPIDocument;
 
-our $VERSION = "0.02";
+our $VERSION = "0.03";
 our @EXPORT  = qw/all_used_modules_ok used_modules_ok/;
 
 sub all_used_modules_ok {
@@ -51,14 +51,15 @@ sub _used_modules_ok {
 sub _check_used_modules {
     my ( $builder, $file ) = @_;
 
-    my $ppi_document                = Test::UsedModules::PPIDocument::generate($file);
-    my $ppi_document_without_symbol = Test::UsedModules::PPIDocument::generate($file, 'Symbol');
+    my ($ppi_document, $load_removed) = Test::UsedModules::PPIDocument::generate($file);
+    my ($ppi_document_without_symbol) = Test::UsedModules::PPIDocument::generate($file, 'Symbol');
 
     my @used_modules = Test::UsedModules::PPIDocument::fetch_modules_in_module($file);
 
     my $fail = 0;
     CHECK: for my $used_module (@used_modules) {
         next if $used_module->{name} eq 'Exporter';
+        next if $used_module->{name} eq 'Module::Load' && $load_removed;
         next if $ppi_document =~ /$used_module->{name}/;
 
         my @imported_subs = _fetch_imported_subs($used_module);
@@ -119,7 +120,7 @@ Test::UsedModules - Detects needless modules which are being used in your module
 
 =head1 VERSION
 
-This document describes Test::UsedModules version 0.02
+This document describes Test::UsedModules version 0.03
 
 
 =head1 SYNOPSIS
@@ -140,6 +141,7 @@ This document describes Test::UsedModules version 0.02
 =head1 DESCRIPTION
 
 Test::UsedModules finds needless modules which are being used in your module to clean up the source code.
+Used modules (it means modules are used by 'use', 'require' or 'load (from Module::Load)' in target) will be checked by this module.
 
 
 =head1 METHODS
@@ -167,6 +169,27 @@ This function requires an argument which is the path to source file.
 
 =back
 
+=head1 KNOWN PROBLEMS
+
+=over 4
+
+=item * Cannot detects rightly when target module applies monkey patch.
+
+e.g. L<HTTP::Message::PSGI>
+
+It applies monkey patch to L<HTTP::Request> and L<HTTP::Response>.
+
+=item * Cannot detects when target module is used by `Module::Load::load` and module name is substituted in variable.
+
+e.g.
+
+    use Module::Load;
+    my $module = 'Foo::Bar';
+    load $module;
+
+in this case, Test::UsedModules will not notify even if Foo::Bar has never been used.
+
+=back
 
 =head1 LICENSE
 

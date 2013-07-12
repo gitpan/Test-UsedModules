@@ -52,6 +52,7 @@
       },
       "test" : {
          "requires" : {
+            "Module::Load" : "0",
             "Test::Builder::Tester" : "1.22",
             "Test::More" : "0.98"
          }
@@ -60,7 +61,7 @@
    "provides" : {
       "Test::UsedModules" : {
          "file" : "lib/Test/UsedModules.pm",
-         "version" : "0.02"
+         "version" : "0.03"
       },
       "Test::UsedModules::Constants" : {
          "file" : "lib/Test/UsedModules/Constants.pm"
@@ -83,5 +84,5 @@
          "web" : "https://github.com/moznion/Test-UsedModules"
       }
    },
-   "version" : "0.02"
+   "version" : "0.03"
 }
